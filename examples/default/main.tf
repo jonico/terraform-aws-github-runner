@@ -1,3 +1,4 @@
+
 locals {
   environment = "default"
   aws_region  = "eu-west-1"
@@ -16,7 +17,7 @@ module "runners" {
 
   environment = local.environment
   tags = {
-    Project = "ProjectX"
+    Project = "octodemo-baseline-terraform-aws-github-runner"
   }
 
   github_app = {
@@ -27,25 +28,34 @@ module "runners" {
     webhook_secret = random_password.random.result
   }
 
-  webhook_lambda_zip                = "lambdas-download/webhook.zip"
-  runner_binaries_syncer_lambda_zip = "lambdas-download/runner-binaries-syncer.zip"
-  runners_lambda_zip                = "lambdas-download/runners.zip"
-  enable_organization_runners       = false
-  runner_extra_labels               = "default,example"
+  #webhook_lambda_zip                = "lambdas-download/webhook.zip"
+  #runner_binaries_syncer_lambda_zip = "lambdas-download/runner-binaries-syncer.zip"
+  #runners_lambda_zip                = "lambdas-download/runners.zip"
+  enable_organization_runners       = true
+  runner_extra_labels               = "auto-scale,ubuntu-latest"
 
   # enable access to the runners via SSM
   enable_ssm_on_runners = true
 
-  # Uncommet idle config to have idle runners from 9 to 5 in time zone Amsterdam
-  # idle_config = [{
-  #   cron      = "* * 9-17 * * *"
-  #   timeZone  = "Europe/Amsterdam"
-  #   idleCount = 1
-  # }]
+  #Uncomment idle config to have idle runners from 9 to 5 in time zone Amsterdam
+   idle_config = [{
+     cron      = "* * * * * *"
+     timeZone  = "Europe/Amsterdam"
+     idleCount = 1
+   }]
 
   # disable KMS and encryption
   # encrypt_secrets = false
 
   # Let the module manage the service linked role
-  # create_service_linked_role_spot = true
+  create_service_linked_role_spot = true
+
+  # use GitHub Enterprise url
+  ghes_url = var.github_enterprise_url
+
+  instance_type = var.instance_type
+
+  minimum_running_time_in_minutes = var.minimum_running_time_in_minutes
+
+  runners_maximum_count = var.runners_maximum_count
 }
