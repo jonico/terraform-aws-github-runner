@@ -58,4 +58,12 @@ module "runners" {
   minimum_running_time_in_minutes = var.minimum_running_time_in_minutes
 
   runners_maximum_count = var.runners_maximum_count
+
+  ami_owners        = ["869946923544"] # jonico account ID
+
+  ami_filter = {
+    name = ["actions-runner-with-additional-packages-*"]
+  }
+
+
 }
