@@ -32,7 +32,7 @@ module "runners" {
   #runner_binaries_syncer_lambda_zip = "lambdas-download/runner-binaries-syncer.zip"
   #runners_lambda_zip                = "lambdas-download/runners.zip"
   enable_organization_runners       = true
-  runner_extra_labels               = "auto-scale,ubuntu-latest"
+  runner_extra_labels               = "auto-scale,ubuntu-latest,aws"
 
   # enable access to the runners via SSM
   enable_ssm_on_runners = true
@@ -41,7 +41,7 @@ module "runners" {
    idle_config = [{
      cron      = "* * * * * *"
      timeZone  = "Europe/Amsterdam"
-     idleCount = 1
+     idleCount = 0
    }]
 
   # disable KMS and encryption

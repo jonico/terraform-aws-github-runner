@@ -1,6 +1,8 @@
 # state
 *.tfstate*
 
+actions-runner/**
+
 # Module directory
 .terraform/
 
