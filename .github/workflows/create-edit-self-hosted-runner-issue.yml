@@ -85,7 +85,7 @@ jobs:
             core.setOutput('runner_min_runners', runner.minRunners);
             core.setOutput('runner_max_runners', runner.maxRunners);
             core.setOutput('runner_ami_filter', runner.amiFilter);
-            core.setOutput('runner_ami_filter', runner.amiOwner);
+            core.setOutput('runner_ami_owner', runner.amiOwner);
 
       - name: Create actions-runner environment
         id: create_actions-runner-environment
