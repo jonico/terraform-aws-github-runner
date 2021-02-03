@@ -1,6 +1,6 @@
 
 locals {
-  environment = "var.runners_environment"
+  environment = var.runners_environment
   aws_region  = "eu-west-1"
 }
 
@@ -41,7 +41,7 @@ module "runners" {
    idle_config = [{
      cron      = "* * * * * *"
      timeZone  = "Europe/Amsterdam"
-     idleCount = var.runners_min_runners
+     idleCount = var.runners_minimum_count
    }]
 
   # disable KMS and encryption
